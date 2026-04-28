@@ -1,0 +1,86 @@
+<!-- LANGUAGE SCREEN -->
+<div *ngIf="!selectedLanguage" class="language-screen">
+  <h2>Select Language / भाषा चुनें / ଭାଷା ବାଛନ୍ତୁ</h2>
+
+  <button (click)="setLanguage('en')">English</button>
+  <button (click)="setLanguage('hi')">हिंदी</button>
+  <button (click)="setLanguage('od')">ଓଡ଼ିଆ</button>
+</div>
+
+<!-- MAIN APP -->
+<div *ngIf="selectedLanguage" class="container">
+
+  <!-- Language Switch -->
+  <button (click)="toggleLanguage()" class="lang-btn">
+    🌐 {{ language.toUpperCase() }}
+  </button>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>{{ texts[language].title }}</h1>
+    <p>{{ texts[language].subtitle }}</p>
+    <button (click)="scrollToContact()">
+      {{ texts[language].book }}
+    </button>
+  </section>
+
+  <!-- SLIDER -->
+  <section class="services">
+    <h2>{{ texts[language].services }}</h2>
+
+    <div class="slider">
+      <span class="nav prev" (click)="prevSlide()">❮</span>
+
+      <img [src]="images[currentIndex].url" class="slide-img">
+
+      <span class="nav next" (click)="nextSlide()">❯</span>
+
+      <div class="overlay">
+        {{ images[currentIndex].name }}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <h2>{{ texts[language].contact }}</h2>
+
+    <input [(ngModel)]="name" [placeholder]="texts[language].name">
+    <input [(ngModel)]="phone" [placeholder]="texts[language].phone" maxlength="10" inputmode="numeric"
+      pattern="[0-9]*">
+
+    <!-- DATE -->
+    <div class="field-group">
+
+      <label class="field-label">
+        {{ texts[language].date }}
+      </label>
+
+      <input type="date" [(ngModel)]="date" [min]="today" class="date-input">
+
+    </div>
+
+    <div class="file-section">
+
+      <label class="upload-btn">
+        📎 {{ texts[language].file }}
+        <input type="file" (change)="onFileSelect($event)" hidden>
+      </label>
+
+      <p *ngIf="fileName" class="file-name">
+        {{ fileName }}
+      </p>
+
+    </div>
+
+    <button (click)="sendWhatsApp()">
+      {{ texts[language].button }}
+    </button>
+  </section>
+
+  <!-- INFO -->
+  <div class="info-box">
+    <p>{{ texts[language].info }}</p>
+  </div>
+
+</div>
